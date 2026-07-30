@@ -91,7 +91,7 @@ async fn cancel_on_shutdown_supports_alternative_error_types() {
                 .await;
 
             assert!(matches!(result, Err(CancelledByShutdown)));
-            result.into()
+            result.map_err(ErrType::from)
         };
 
         let result = Toplevel::<ErrType>::new(async move |s: &mut SubsystemHandle<ErrType>| {
